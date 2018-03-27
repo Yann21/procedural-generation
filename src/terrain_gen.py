@@ -2,8 +2,8 @@ from __future__ import absolute_import
 import random
 import time
 import math
-from src.visual import *
 from src.tile import Tile
+from src.visual import *
 
 class Room(object):
     def __init__(self, size):
@@ -87,6 +87,7 @@ class Room(object):
                     halfPointValue = self.formatColorValue((sum(tripletValues) + self.noise()) / len(tripletValues))
                     self.dataMatrix[halvesLocation[i][0]][halvesLocation[i][1]] = halfPointValue
 
+            #self.renderRoom()
             # Step4: recursively apply algorithm to 4 created sections
             """ debug
             print("coins",corners)
@@ -101,7 +102,7 @@ class Room(object):
     def noise(self):
         #return random.uniform(0,1.6)**2-1.28
         #return random.uniform(-1.8,1.8)
-        return random.uniform(-1.50,1.50)
+        return random.uniform(-1.71,1.71)
     """ Mid point algorithm end """
 
     """ Natural phenomenon """
@@ -205,22 +206,6 @@ class Room(object):
         else: return value
 
     """ Smart generation section """
-    def smartGeneration(self):
-        for m in range(self.x):
-            for n in range(self.y):
-                if random.randint(0,1) > 0.6 and n != 0 and m != 0:
-                    test = self.getContinuity(n,m)
-                    self.dataMatrix[n][m] = test
-
-                else:
-                    while True:
-                        t2 = self.choseRandomElevation()
-                        self.dataMatrix[n][m] = t2
-                        if self.checkElevation(n,m):break
-
-                    self.dataMatrix[n][m] = t2
-                    t1 = t2
-
     def choseRandomElevation(self):
         return random.randint(0,4)
 
@@ -245,26 +230,16 @@ class Room(object):
         return self.formatColorValue((sum(directions)/len(directions)))
 
     def surroundings(self,n,m):
-        VARIATION = True
-        if VARIATION:
-            retour = [
-                self.dataMatrix[(n+1)%self.x][(m+1)%self.y],
-                self.dataMatrix[(n-1)%self.x][(m-1)%self.y],
-                self.dataMatrix[(n-1)%self.x][(m+1)%self.y],
-                self.dataMatrix[(n+1)%self.x][(m-1)%self.y],
-                self.dataMatrix[n][(m+1)%self.y],
-                self.dataMatrix[n][(m-1)%self.y],
-                self.dataMatrix[(n+1)%self.x][m],
-                self.dataMatrix[(n-1)%self.x][m]
-            ]
-
-        else:
-            retour =[
-                self.dataMatrix[n][(m+1)%self.y],
-                self.dataMatrix[n][(m-1)%self.y],
-                self.dataMatrix[(n+1)%self.x][m],
-                self.dataMatrix[(n-1)%self.x][m]
-            ]
+        retour = [
+            self.dataMatrix[(n+1)%self.x][(m+1)%self.y],
+            self.dataMatrix[(n-1)%self.x][(m-1)%self.y],
+            self.dataMatrix[(n-1)%self.x][(m+1)%self.y],
+            self.dataMatrix[(n+1)%self.x][(m-1)%self.y],
+            self.dataMatrix[n][(m+1)%self.y],
+            self.dataMatrix[n][(m-1)%self.y],
+            self.dataMatrix[(n+1)%self.x][m],
+            self.dataMatrix[(n-1)%self.x][m]
+        ]
 
         return retour
 
@@ -272,8 +247,11 @@ class Room(object):
 
     """ Start rendering section """
     def renderAll(self):
+        initDisplay()
         self.renderRoom()
         self.renderEntities()
+
+        pygame.display.update()
 
     def renderRoom(self):
         colorMappingTile = {

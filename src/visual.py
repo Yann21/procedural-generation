@@ -15,16 +15,15 @@ high = (255,128,0)
 very_high = (255,0,0)
 non_charted = (255,20,147)
 
-SIZEB = 100
+SIZEB = 15
 SIZE = (SIZEB, SIZEB)
 NUMBER_OF_AVAILABLE_TILES = 5
 
 #view
-pygame.init()
-gameDisplay = pygame.display.set_mode((SIZE[0] *10, SIZE[1] * 10))
-pygame.display.set_caption("Procedural Generation")
+def initDisplay():
+    pygame.init()
+    gameDisplay = pygame.display.set_mode((SIZE[0] *10, SIZE[1] * 10))
+    pygame.display.set_caption("Procedural Generation")
 
 def rect(color, coord):
     pygame.draw.rect(gameDisplay,color,coord)
-
-pygame.display.update()

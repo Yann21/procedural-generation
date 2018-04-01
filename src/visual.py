@@ -3,10 +3,11 @@ import pygame
 grey = (100,100,100)
 green = (0,200,0)
 blue = (0,0,255)
+orange = (255,165,0)
 yellow = (200,200,10)
 brown = (136,69,19)
 red = (255,0,0)
-black = (80,80,80)
+black = (100,100,100)
 
 very_low = (0,128,255)
 low = (0,255,0)
@@ -15,13 +16,16 @@ high = (255,128,0)
 very_high = (255,0,0)
 non_charted = (255,20,147)
 
-SIZEB = 15
+SIZEB = 60
 SIZE = (SIZEB, SIZEB)
 NUMBER_OF_AVAILABLE_TILES = 5
+
+gameDisplay = None
 
 #view
 def initDisplay():
     pygame.init()
+    global gameDisplay
     gameDisplay = pygame.display.set_mode((SIZE[0] *10, SIZE[1] * 10))
     pygame.display.set_caption("Procedural Generation")
 

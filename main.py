@@ -2,6 +2,8 @@ from src import *
 import time
 
 def main():
+    initDisplay()
+
     for k in range(20):
         newRoom = Room(SIZE)
 

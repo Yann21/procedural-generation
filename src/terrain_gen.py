@@ -5,6 +5,9 @@ import math
 from src.tile import Tile
 from src.visual import *
 
+global a
+a = 0
+
 class Room(object):
     def __init__(self, size):
         self.x = size[0]
@@ -21,6 +24,9 @@ class Room(object):
     """ Mid Point algorithm start """
     def midPointGenerationStart(self,seed=0):
         self.initCorners(seed)
+        global a
+        a+= 1
+        a = 0
         self.midPointRecGeneration([
             (0,0),
             (self.x-1,0),
@@ -38,6 +44,7 @@ class Room(object):
         self.dataMatrix[0][self.y-1] = corners[3]
 
     def midPointRecGeneration(self, corners):
+        affichageTileDebug = False
 
         # Clockwise starting in the upper left corner; visualising:
         corners = [
@@ -49,7 +56,7 @@ class Room(object):
 
         # Step1: if algorithm at the end, stop it
         if corners[0] == corners[1] or corners[1]==corners[2] or \
-            abs(corners[0][0]-corners[0][1]) == 1 or abs(corners[1][1]-corners[2][1])==1: #implement additional checks
+            (abs(corners[0][0]-corners[1][0]) == 1 and abs(corners[1][1]-corners[2][1])==1):
             return 0
 
         else:
@@ -58,6 +65,7 @@ class Room(object):
                 int(sum([corner[0] for corner in corners])/4),
                 int(sum([corner[1] for corner in corners])/4)
             )
+
             midPointValue = self.dataMatrix[midPointCoordinates[0]][midPointCoordinates[1]]
 
             if midPointValue == -1:
@@ -87,14 +95,9 @@ class Room(object):
                     halfPointValue = self.formatColorValue((sum(tripletValues) + self.noise()) / len(tripletValues))
                     self.dataMatrix[halvesLocation[i][0]][halvesLocation[i][1]] = halfPointValue
 
-            #self.renderRoom()
-            # Step4: recursively apply algorithm to 4 created sections
-            """ debug
-            print("coins",corners)
-            print("milieu",midPointCoordinates)
-            """
-            #time.sleep()
-            #self.renderRoom()
+            if affichageTileDebug:
+                self.renderRoom()
+                raw_input()
 
             for i in range(4):
                 self.midPointRecGeneration([corners[i],halvesLocation[i],midPointCoordinates,halvesLocation[i-1]])
@@ -283,7 +286,7 @@ class Room(object):
         for n in range(self.x):
             for m in range(self.y):
                 if self.entityMatrix[n][m] == True:
-                    rect(black, (10*n+2.5, 10*m+2.5,5,5))
+                    rect(orange, (10*n+3.5, 10*m+3.5,3,3))
 
         pygame.display.update()
 

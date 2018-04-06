@@ -250,7 +250,7 @@ class Room(object):
 
     """ Start rendering section """
     def renderAll(self):
-        initDisplay()
+        initDisplay(SIZEB)
         self.renderRoom()
         self.renderEntities()
 
@@ -276,8 +276,8 @@ class Room(object):
             4: very_high,
         }
 
-        for n in range(self.x):
-            for m in range(self.y):
+        for m in range(self.y):
+            for n in range(self.x):
                 rect(colorMappingTile.get(self.dataMatrix[n][m]), (10*n,10*m,10,10))
 
         pygame.display.update()

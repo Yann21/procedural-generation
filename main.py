@@ -2,7 +2,7 @@ from src import *
 import time
 
 def main():
-    initDisplay()
+    initDisplay(SIZEB)
 
     for k in range(20):
         newRoom = Room(SIZE)

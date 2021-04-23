@@ -28,7 +28,7 @@ def rect(color, coord):
 
 pygame.display.update()
 
-class Tile(object):
+class Tile:
     def __init__(self, *args):
         self.POSSIBLE_TYPES = ["Water", "Sand","Grass", "Wood", "Rock"]
 

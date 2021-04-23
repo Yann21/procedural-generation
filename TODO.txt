@@ -1,1 +1,0 @@
-Comptabilite GIMP, generation de map avec les Tiles_80x80.png

@@ -11,7 +11,7 @@ def main():
         newRoom.drought()
         newRoom.randomEntityGen()
         newRoom.renderAll()
-        inp = raw_input("Press ENTER to continue.\n")
+        inp = input("Press ENTER to continue.\n")
         if inp == 'e':
             newRoom.initNaturalPhenomenon()
             newRoom.renderRoom()

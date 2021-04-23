@@ -1,6 +1,7 @@
 from src import *
 import time
 
+
 def main():
     initDisplay(SIZEB)
 
@@ -12,10 +13,11 @@ def main():
         newRoom.randomEntityGen()
         newRoom.renderAll()
         inp = input("Press ENTER to continue.\n")
-        if inp == 'e':
+        if inp == "e":
             newRoom.initNaturalPhenomenon()
             newRoom.renderRoom()
             raw_input("Press ENTER to continue.")
+
 
 if __name__ == "__main__":
     main()
